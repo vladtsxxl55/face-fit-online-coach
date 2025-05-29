@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { execSync } from 'node:child_process';
 import puppeteer from 'puppeteer';
-import { htmlToFigma } from 'html-to-figma';
+import { htmlToFigma } from '@builder.io/html-to-figma';
 import { Client } from 'figma-js';
 import httpServer from 'http-server';
 
