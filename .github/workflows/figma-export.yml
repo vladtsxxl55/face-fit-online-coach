@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install deps
-        run: |
-          npm ci
-          npm i -D puppeteer html-to-figma figma-js http-server
+     - name: Install deps
+  run: |
+    npm ci
+    npm i -D puppeteer @builder.io/html-to-figma figma-js http-server
 
       - name: Build & export static site
         run: |
