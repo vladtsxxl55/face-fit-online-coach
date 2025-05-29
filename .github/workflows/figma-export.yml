@@ -1,0 +1,33 @@
+name: Export main page to Figma
+
+on:
+  workflow_dispatch:  # запуск вручную
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: |
+          npm ci
+          npm i -D puppeteer html-to-figma figma-js http-server
+
+      - name: Build & export static site
+        run: |
+          npm run build
+          npx next export      # статичный HTML в ./out
+
+      - name: Run headless crawler & push to Figma
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
+          FIGMA_FILE_KEY: ${{ secrets.FIGMA_FILE_KEY }}
+        run: node .github/scripts/export-to-figma.mjs
